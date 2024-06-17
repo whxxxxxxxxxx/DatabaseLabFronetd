@@ -79,7 +79,7 @@ const Register = () => {
                         { required: true, message: '密码不能为空' }
                 ]}
                 >
-                    <Input size='large' placeholder='请输入密码'/>
+                    <Input.Password size='large' placeholder='请输入密码'/>
                 </Form.Item>
 
                 <Form.Item 

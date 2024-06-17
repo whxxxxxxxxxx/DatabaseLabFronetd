@@ -1,8 +1,12 @@
 
+import { useSelector } from 'react-redux';
+import { Outlet,useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 const User = () => {
     return (
-        <div>
-        <h1>User</h1>
+        <div className='flex justify-center items-center h-screen '>
+            <Outlet />
         </div>
     );
 }

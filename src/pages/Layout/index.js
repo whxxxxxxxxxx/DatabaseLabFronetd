@@ -1,9 +1,9 @@
 import { Layout, Menu, Popconfirm } from 'antd'
 import {
-  HomeOutlined,
-  DiffOutlined,
-  EditOutlined,
   LogoutOutlined,
+  UserOutlined,
+  ShoppingOutlined,
+  InboxOutlined,
 } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -15,19 +15,19 @@ const { Header, Sider } = Layout
 
 const items = [
   {
-    label: '首页',
-    key: '/home',
-    icon: <HomeOutlined />,
+    label: '用户信息',
+    key: '/user/info',
+    icon: <UserOutlined />,
   },
   {
-    label: '文章管理',
-    key: '/article',
-    icon: <DiffOutlined />,
+    label: '商品列表',
+    key: '/product',
+    icon: <ShoppingOutlined />,
   },
   {
-    label: '创建文章',
-    key: '/publish',
-    icon: <EditOutlined />,
+    label: '订单管理',
+    key: '/order',
+    icon: <InboxOutlined />,
   },
 ]
 
@@ -42,7 +42,6 @@ const GeekLayout = () => {
   // 反向高亮
   // 1. 获取当前路由路径
   const location = useLocation()
-  console.log(location.pathname)
   const selectedkey = location.pathname
 
   // 触发个人用户信息action
@@ -58,14 +57,14 @@ const GeekLayout = () => {
     navigate('/login')
   }
 
-  const name = useSelector(state => state.user.userInfo.name)
+  const name = useSelector(state => state.user.userInfo.nick_name)
   return (
-    <Layout>
-      <Header className="h-full p-0">
+    <Layout className='h-full'>
+      <Header className="h-24 p-0">
         <div className="w-24 h-24 bg-[url('/src/assets/logo.png')] bg-cover bg-clip-content" />
         <div className="absolute right-0 top-0 pr-5 text-white">
-          <span className="user-name">{name}</span>
-          <span className="user-logout">
+          <span className="mr-5">{name}</span>
+          <span className="inline-block cursor-pointer">
             <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" onConfirm={onConfirm}>
               <LogoutOutlined /> 退出
             </Popconfirm>
@@ -76,13 +75,13 @@ const GeekLayout = () => {
         <Sider width={200} className="site-layout-background">
           <Menu
             mode="inline"
-            theme="dark"
+            theme="light"
             selectedKeys={selectedkey}
             onClick={onMenuClick}
             items={items}
             style={{ height: '100%', borderRight: 0 }}></Menu>
         </Sider>
-        <Layout className="layout-content" style={{ padding: 20 }}>
+        <Layout className=" overflow-y-auto" style={{ padding: 20 }}>
           {/* 二级路由的出口 */}
           <Outlet />
         </Layout>

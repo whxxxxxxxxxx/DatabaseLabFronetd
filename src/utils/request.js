@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { getToken, removeToken } from './token'
+import { getToken, removeToken,getRefreshToken } from './token'
 import router from '@/router'
 
 const request = axios.create({
@@ -8,16 +8,19 @@ const request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
+    const accessToken = getToken();  // 获取访问令牌
+    const refreshToken = getRefreshToken();  // 假设你有类似的函数获取刷新令牌
 
-
-    const token = getToken()
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`
+    // 设置头部的access_token和refresh_token，确保它们被后端正确识别
+    if (accessToken && refreshToken) {
+        config.headers['access_token'] = accessToken;
+        config.headers['refresh_token'] = refreshToken;
     }
-    return config
+    return config;
 }, (error) => {
-    return Promise.reject(error)
-})
+    return Promise.reject(error);
+});
+
 
 request.interceptors.response.use((response) => {
     return response.data
