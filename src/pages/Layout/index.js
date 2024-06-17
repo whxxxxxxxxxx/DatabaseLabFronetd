@@ -61,9 +61,9 @@ const GeekLayout = () => {
   const name = useSelector(state => state.user.userInfo.name)
   return (
     <Layout>
-      <Header className="header">
-        <div className="logo" />
-        <div className="user-info">
+      <Header className="h-full p-0">
+        <div className="w-24 h-24 bg-[url('/src/assets/logo.png')] bg-cover bg-clip-content" />
+        <div className="absolute right-0 top-0 pr-5 text-white">
           <span className="user-name">{name}</span>
           <span className="user-logout">
             <Popconfirm title="是否确认退出？" okText="退出" cancelText="取消" onConfirm={onConfirm}>
