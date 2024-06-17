@@ -1,7 +1,7 @@
 // 和用户相关的状态管理
 
 import { createSlice } from '@reduxjs/toolkit'
-import { setToken as _setToken, getToken, removeToken } from '@/utils'
+import { setToken as _setToken, getToken, removeToken,getRefreshToken,setRefreshToken as _setRefreshToken} from '@/utils'
 import { loginAPI, getProfileAPI } from '@/apis/user'
 
 const userStore = createSlice({
@@ -9,6 +9,7 @@ const userStore = createSlice({
   // 数据状态
   initialState: {
     token: getToken() || '',
+    refresh_token: getRefreshToken()|| '',
     userInfo: {}
   },
   // 同步修改方法
@@ -17,11 +18,16 @@ const userStore = createSlice({
       state.token = action.payload
       _setToken(action.payload)
     },
+    setRefreshToken(state,action){
+      state.refresh_token = action.payload
+      _setRefreshToken(action.payload)
+    },
     setUserInfo (state, action) {
       state.userInfo = action.payload
     },
     clearUserInfo (state) {
       state.token = ''
+      state.refresh_token = ''
       state.userInfo = {}
       removeToken()
     }
@@ -31,17 +37,19 @@ const userStore = createSlice({
 
 // 解构出actionCreater
 
-const { setToken, setUserInfo, clearUserInfo } = userStore.actions
+const { setToken,setRefreshToken,setUserInfo, clearUserInfo } = userStore.actions
 
 // 获取reducer函数
 
 const userReducer = userStore.reducer
 
 // 登录获取token异步方法封装
-const fetchLogin = (loginForm) => {
+const fetchLogin = (res) => {
   return async (dispatch) => {
-    const res = await loginAPI(loginForm)
-    dispatch(setToken(res.data.token))
+    if(res.code === 200){
+      dispatch(setToken(res.data.token))
+      dispatch(setRefreshToken(res.data.refresh_token))
+    }  
   }
 }
 
