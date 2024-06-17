@@ -15,6 +15,7 @@ const Login = ()=>{
     }
     const onRegister = ()=>{
         navigate('/register')
+        message.warning('请先注册')
     }
 
     return (

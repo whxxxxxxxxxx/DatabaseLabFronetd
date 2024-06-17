@@ -1,24 +1,49 @@
 import {Card,Form,Input,Button,Upload} from 'antd';
 import {useState} from 'react';
 const Register = () => {
+
+    const onChange =(value)=>{
+        console.log("上传中")
+        setFileList(value.fileList)
+    }
+
+    const onFinish = (formValue) => {
+        console.log('Received values of form: ', formValue);
+        const {nick_name, user_name, password, email} = formValue
+        const reqData = {
+            nick_name,
+            user_name,
+            password,
+            email,
+            avater: fileList.map(item => {
+            if (item.response) {
+                return item.response.data.url
+            } else {
+                return item.url
+            }
+            })
+          }
+    }
+
     const [fileList, setFileList] = useState([]);
     return (
         <div class="absolute inset-0 bg-center bg-cover bg-[url('/src/assets/login.png')]">
         <Card className='w-120 h-120 absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 shadow-black'>
-            <Form   validateTrigger='onBlur'  >
+            <Form   validateTrigger='onBlur' onFinish={onFinish} >
                 <Form.Item 
-                    name='mobile'
+                    name='avater'
                     label='上传头像'
                     rules={[
                         { required: true, message: '请上传头像' },]}
                 >
                     <Upload
                         label='头像'
-                        action=""
+                        action="http://localhost:8001/common/upload"
+                        method='post'
                         listType="picture-card"
                         maxCount={1}
                         fileList={fileList}
-                        // onChange={onChange}
+                        onChange={onChange}
                         // onPreview={onPreview}
                     >
                     {'+ Upload'}
