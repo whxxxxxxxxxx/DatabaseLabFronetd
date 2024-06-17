@@ -1,28 +1,32 @@
-import {Card,Form,Input,Button,Upload} from 'antd';
+import {Card,Form,Input,Button,Upload,message} from 'antd';
 import {useState} from 'react';
+import {RegisterAPI} from '@/apis/user';
+import {useNavigate} from 'react-router-dom'
 const Register = () => {
-
+    const navigate = useNavigate()
     const onChange =(value)=>{
         console.log("上传中")
         setFileList(value.fileList)
     }
 
     const onFinish = (formValue) => {
-        console.log('Received values of form: ', formValue);
         const {nick_name, user_name, password, email} = formValue
         const reqData = {
             nick_name,
             user_name,
             password,
             email,
-            avater: fileList.map(item => {
-            if (item.response) {
-                return item.response.data.url
-            } else {
-                return item.url
+            avatar: fileList[0].response.data
+        }
+        RegisterAPI(reqData).then(res => {
+            if (res.code !== 200) {
+                message.error(res.message);
+            }else{
+                message.success('注册成功');
+                navigate('/login')
             }
-            })
-          }
+        });
+        
     }
 
     const [fileList, setFileList] = useState([]);
