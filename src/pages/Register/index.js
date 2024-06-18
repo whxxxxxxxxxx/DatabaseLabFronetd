@@ -5,7 +5,6 @@ import {useNavigate} from 'react-router-dom'
 const Register = () => {
     const navigate = useNavigate()
     const onChange =(value)=>{
-        console.log("上传中")
         setFileList(value.fileList)
     }
 

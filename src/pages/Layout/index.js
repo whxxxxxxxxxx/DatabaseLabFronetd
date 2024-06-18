@@ -39,6 +39,8 @@ const GeekLayout = () => {
     navigate(path)
   }
 
+  
+
   // 反向高亮
   // 1. 获取当前路由路径
   const location = useLocation()
@@ -48,6 +50,8 @@ const GeekLayout = () => {
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(fetchUserInfo())
+    if (location.pathname === '/')
+    navigate('/user/info')
   }, [dispatch])
 
   // 退出登录确认回调

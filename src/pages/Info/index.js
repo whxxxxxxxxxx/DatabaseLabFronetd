@@ -2,25 +2,32 @@ import { Descriptions , Button } from 'antd';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-
+import { getProfileAPI } from '@/apis/user';
+import { useState } from 'react';
 const Info = () => {
     const user = useSelector(state => state.user);
     const navigate = useNavigate();
-    const userinfo = user.userInfo;
-
+    const [userinfo, setUserInfo] = useState(user.userInfo);
     const onClick = () => {
         navigate('/user/setting');
     };
 
     useEffect(() => {
-        if (!userinfo) {
-            console.log("User info not found, redirecting...");
-            navigate('/login');
-        } else {
-            console.log("User info found:");
-            console.log(userinfo);
+        async function fetchProfile() {
+            if (!userinfo) {
+                console.log("User info not found, redirecting...");
+                console.log(userinfo);
+                navigate('/login');
+            } else {
+                const res = await getProfileAPI();
+                console.log(res.data);
+                setUserInfo(res.data);
+            }
         }
-    }, [userinfo, navigate]);
+    
+        fetchProfile();
+    }, [navigate]); // 添加 userinfo 作为依赖项
+    
 
     // 构建基于userinfo的items数组
     const items = userinfo ? [

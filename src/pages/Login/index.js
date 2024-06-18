@@ -16,7 +16,7 @@ const Login = ()=>{
             console.log(res)
             dispatch(fetchLogin(res))
             if (res.code === 200) {
-                navigate('/')
+                navigate('/user/info')
                 message.success(res.message)
             }
             else{

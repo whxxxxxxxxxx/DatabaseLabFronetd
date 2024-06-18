@@ -10,6 +10,14 @@ export function loginAPI (formData) {
   })
 }
 
+export function UpdateProfileAPI (formData) {
+  return request({
+    url: '/users/info',
+    method: 'PUT',
+    data: formData
+  })
+}
+
 
 export function RegisterAPI (formData) {
   return request({
