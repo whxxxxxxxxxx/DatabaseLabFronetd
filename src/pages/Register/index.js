@@ -89,7 +89,7 @@ const Register = () => {
                 </Form.Item>
 
 
-                <Form.Item class='flex'>
+                <Form.Item className='flex'>
                     <Button type='primary' htmlType='submit' size='large' block>注册</Button>
                 </Form.Item>
             </Form>

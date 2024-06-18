@@ -4,6 +4,7 @@ import router from '@/router'
 
 const request = axios.create({
     baseURL: 'http://localhost:8001',
+    // baseURL: 'http://192.168.50.89:8001',
     timeout: 5000
 })
 

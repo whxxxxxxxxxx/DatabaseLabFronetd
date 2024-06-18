@@ -4,6 +4,7 @@ import {
   UserOutlined,
   ShoppingOutlined,
   InboxOutlined,
+  UploadOutlined
 } from '@ant-design/icons'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -20,8 +21,13 @@ const items = [
     icon: <UserOutlined />,
   },
   {
+    label: '发布商品',
+    key: '/publish',
+    icon: <UploadOutlined />,
+  },
+  {
     label: '商品列表',
-    key: '/product',
+    key: '/product/list',
     icon: <ShoppingOutlined />,
   },
   {
