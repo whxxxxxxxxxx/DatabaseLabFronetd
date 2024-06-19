@@ -80,7 +80,7 @@ const ProductDetail = () => {
 
     return (
         <div>
-            <Descriptions title="用户信息" layout="vertical" bordered items={items} />
+            <Descriptions title="商品详情" layout="vertical" bordered items={items} />
         </div>
 
     );
