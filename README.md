@@ -1,3 +1,6 @@
+# 数据库课程作业
+为数据库课程的后端创建了一个前端，主要使用react、redux、react-router、axios等
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
